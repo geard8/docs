@@ -125,29 +125,3 @@ To 192.168.8.123:/home/thor/docs/docs_bare_project.git
 
 Nicklas@LAPTOP-LJIORLSB MINGW64 ~/src-code/chas/docs/docs (main)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-# TEMP KLAD START
-
-On remote
-- git init --bare test_repo.git
-- In hooks folder create post-receive file.
-
-On local
-- git remote add staging ?.?.?.?(ip)
-  
-
-daveceddia.com/deploy-git-repo-to-server
-
-# TEMP KLAD END
-
