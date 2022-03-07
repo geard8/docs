@@ -16,7 +16,7 @@ thor@thor:~/docs$ pwd
 /home/thor/docs
 ```
 
-- Run "git init --bare /path/to/bare_project.git" to create a bare repo
+- Run "git init --bare docs_bare_project.git" to create a bare repo
 ```
 thor@thor:~/docs$ git init --bare docs_bare_project.git
 Initialized empty Git repository in /home/thor/docs/docs_bare_project.git/
@@ -44,16 +44,16 @@ thor@thor:~/docs/docs_bare_project.git/hooks$
 #!/bin/sh
 
 # Check out the files
-git --work-tree=/home/thor/docs/output_docs --git-dir=/home/thor/docs/docs_bare_project.git checkout -f
+git --work-tree=/home/thor/docs/output_docs --git-dir=/home/thor/docs/docs_bare_project.git checkout -f main
 ```
-Gives me this.
+Gives this.
 ```
 thor@thor:~/docs/docs_bare_project.git/hooks$ nano post-receive
 thor@thor:~/docs/docs_bare_project.git/hooks$ cat post-receive
 #!/bin/sh
 
 # Check out the files
-git --work-tree=/home/thor/docs/output_docs --git-dir=/home/thor/docs/docs_bare_project.git checkout -f
+git --work-tree=/home/thor/docs/output_docs --git-dir=/home/thor/docs/docs_bare_project.git checkout -f main
 thor@thor:~/docs/docs_bare_project.git/hooks$
 
 ```
@@ -82,9 +82,9 @@ drwxrwxr-x 7 thor thor 4096 Mar  7 13:03 ../
 thor@thor:~/docs/docs_bare_project.git/hooks$
 ```
 
-## local setup
+## Local setup
 
-All command in this part is on local which in this case is on windows 10.
+All command in this part is on local which in this case is on windows 10 and shall only be done after remote setup is done.
 
 - Make use you are in folder for git repo on local that you wish to push to remote.
 ```
@@ -113,15 +113,30 @@ $
 Nicklas@LAPTOP-LJIORLSB MINGW64 ~/src-code/chas/docs/docs (main)
 $ git push remote_name
 thor@192.168.8.123's password:
-Enumerating objects: 16, done.
-Counting objects: 100% (16/16), done.
+Enumerating objects: 24, done.
+Counting objects: 100% (24/24), done.
 Delta compression using up to 8 threads
-Compressing objects: 100% (14/14), done.
-Writing objects: 100% (16/16), 6.91 KiB | 884.00 KiB/s, done.
-Total 16 (delta 2), reused 0 (delta 0), pack-reused 0
-remote: fatal: not a git repository: '/docs/docs_bare_project.git'
+Compressing objects: 100% (22/22), done.
+Writing objects: 100% (24/24), 9.05 KiB | 618.00 KiB/s, done.
+Total 24 (delta 5), reused 0 (delta 0), pack-reused 0
+remote: Switched to branch 'main'
 To 192.168.8.123:/home/thor/docs/docs_bare_project.git
  * [new branch]      main -> main
 
 Nicklas@LAPTOP-LJIORLSB MINGW64 ~/src-code/chas/docs/docs (main)
+$
 ```
+
+## Result on remote.
+- Before this was done
+```
+thor@thor:~/docs/output_docs$ ls
+thor@thor:~/docs/output_docs$
+```
+- After this is done
+```
+thor@thor:~/docs/output_docs$ ls
+dropbear  git_post-receive  README.md  ssh_key  ufw
+thor@thor:~/docs/output_docs$
+```
+So this is one use of post-receive and changing what writen in file post-receive file will change what it will do.
